@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useSyncExternalStore } from "react"
 
 import { Button } from "@/components/ui/button"
 import { motion } from "motion/react"
@@ -10,21 +10,39 @@ import { questionBank } from "@/lib/quiz-data"
 
 const STORAGE_KEY = "mythosmatch-answers"
 
+// Helper functions for useSyncExternalStore
+function subscribe(callback: () => void) {
+  window.addEventListener("storage", callback)
+  return () => window.removeEventListener("storage", callback)
+}
+
+function getSnapshot() {
+  return localStorage.getItem(STORAGE_KEY) ?? "{}"
+}
+
+function getServerSnapshot() {
+  return "{}"
+}
+
 export default function QuestionPage() {
   const params = useParams<{ questionId?: string }>()
   const router = useRouter()
   const [isExiting, setIsExiting] = useState(false)
 
-  // Read initial state safely on first render
-  const [answers, setAnswers] = useState<Record<string, string>>(() => {
-    if (typeof window === "undefined") return {}
+  // Reads localStorage on the client without cascading render warnings or hydration errors
+  const savedAnswersRaw = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot
+  )
+
+  const answers: Record<string, string> = (() => {
     try {
-      const saved = window.localStorage.getItem(STORAGE_KEY)
-      return saved ? (JSON.parse(saved) as Record<string, string>) : {}
+      return JSON.parse(savedAnswersRaw) as Record<string, string>
     } catch {
       return {}
     }
-  })
+  })()
 
   const rawIndex = Number(params.questionId ?? "0")
   const questionIndex = Number.isNaN(rawIndex) ? -1 : rawIndex - 1
@@ -74,24 +92,23 @@ export default function QuestionPage() {
 
     const nextAnswers = { ...answers, [String(question.id)]: optionId }
 
-    setAnswers(nextAnswers)
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextAnswers))
+      // Dispatch custom event to update component state immediately via useSyncExternalStore
+      window.dispatchEvent(new Event("storage"))
     } catch {
       // Handle storage quota exceeded if necessary
     }
 
-    // Trigger the exit animation first
     setIsExiting(true)
 
-    // Wait for the exit animation duration before navigating
     setTimeout(() => {
       if (questionIndex + 1 < questionBank.length) {
         router.push(`/questions/${String(questionIndex + 2).padStart(2, "0")}`)
       } else {
         router.push("/result")
       }
-    }, 400) // Matches exit transition duration
+    }, 400)
   }
 
   return (
