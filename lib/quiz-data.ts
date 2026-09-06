@@ -115,22 +115,22 @@ export const questionBank: Question[] = [
       {
         id: "a",
         label: "Take charge and assign roles",
-        weights: { zeus: 2, thor: 1, ra: 1 },
+        weights: { zeus: 2, ra: 2 },
       },
       {
         id: "b",
         label: "Listen, then plan the smartest path",
-        weights: { athena: 2, odin: 1, isis: 1 },
+        weights: { athena: 2, odin: 1 },
       },
       {
         id: "c",
         label: "Jump in and fuel the momentum",
-        weights: { ares: 2, thor: 1, ra: 1 },
+        weights: { ares: 2, thor: 1 },
       },
       {
         id: "d",
         label: "Sense the mood and steady everyone",
-        weights: { freya: 2, isis: 2, ra: 1 },
+        weights: { freya: 2, isis: 2 },
       },
     ],
   },
@@ -141,12 +141,12 @@ export const questionBank: Question[] = [
       {
         id: "a",
         label: "A grand hall with everyone looking to me",
-        weights: { zeus: 2, ra: 1 },
+        weights: { zeus: 2, ra: 2 },
       },
       {
         id: "b",
         label: "A library or quiet thinking space",
-        weights: { athena: 2, odin: 2 },
+        weights: { athena: 2, odin: 1 },
       },
       {
         id: "c",
@@ -156,12 +156,12 @@ export const questionBank: Question[] = [
       {
         id: "d",
         label: "A ritual room filled with emotion and meaning",
-        weights: { freya: 2, isis: 2, ra: 1 },
+        weights: { freya: 2, isis: 1, ra: 1 },
       },
       {
         id: "e",
         label: "A stormy cliff where I can think clearly",
-        weights: { odin: 2, thor: 2, zeus: 1 },
+        weights: { thor: 2, odin: 1 },
       },
     ],
   },
@@ -172,7 +172,7 @@ export const questionBank: Question[] = [
       {
         id: "a",
         label: "Leading an adventure with friends",
-        weights: { zeus: 2, thor: 2 },
+        weights: { zeus: 2, thor: 1, ra: 1 },
       },
       {
         id: "b",
@@ -182,7 +182,7 @@ export const questionBank: Question[] = [
       {
         id: "c",
         label: "Challenge, competition, and physical intensity",
-        weights: { ares: 2, thor: 1 },
+        weights: { ares: 2, thor: 2 },
       },
       {
         id: "d",
@@ -198,7 +198,7 @@ export const questionBank: Question[] = [
       {
         id: "a",
         label: "A test of courage and nerve",
-        weights: { zeus: 1, ares: 2, thor: 2 },
+        weights: { ares: 2, thor: 2, zeus: 1 },
       },
       {
         id: "b",
@@ -208,7 +208,7 @@ export const questionBank: Question[] = [
       {
         id: "c",
         label: "Something that lets me protect others",
-        weights: { thor: 2, ra: 1, isis: 1 },
+        weights: { isis: 2, ra: 2, freya: 1 },
       },
     ],
   },
@@ -219,7 +219,7 @@ export const questionBank: Question[] = [
       {
         id: "a",
         label: "Stand firm and take control",
-        weights: { zeus: 2, ra: 1 },
+        weights: { zeus: 2, ra: 2 },
       },
       {
         id: "b",
@@ -229,7 +229,7 @@ export const questionBank: Question[] = [
       {
         id: "c",
         label: "Face it head-on with raw energy",
-        weights: { ares: 2, thor: 1 },
+        weights: { ares: 2, thor: 2 },
       },
       {
         id: "d",
@@ -270,7 +270,7 @@ export const questionBank: Question[] = [
       {
         id: "e",
         label: "Your wit and depth of thought",
-        weights: { odin: 2, freya: 1 },
+        weights: { freya: 2, odin: 1, athena: 1 },
       },
     ],
   },
@@ -281,12 +281,12 @@ export const questionBank: Question[] = [
       {
         id: "a",
         label: "Authority and vision",
-        weights: { zeus: 2, ra: 1 },
+        weights: { zeus: 2, ra: 2 },
       },
       {
         id: "b",
         label: "Wisdom and strategy",
-        weights: { athena: 2, odin: 2 },
+        weights: { odin: 2, athena: 1, zeus: 1 },
       },
       {
         id: "c",
@@ -296,7 +296,7 @@ export const questionBank: Question[] = [
       {
         id: "d",
         label: "Compassion and intuition",
-        weights: { freya: 2, isis: 2 },
+        weights: { freya: 1, isis: 1 },
       },
     ],
   },
