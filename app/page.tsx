@@ -43,7 +43,7 @@ export default function Page() {
               transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
             }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-xl rounded-[2rem] border border-border bg-white/5 p-8 text-center shadow-sm backdrop-blur-lg sm:p-12"
+            className="w-full max-w-xl rounded-[2rem] border border-border bg-white/5 p-8 text-center shadow-sm sm:p-12"
           >
             <motion.p
               initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}

@@ -66,7 +66,7 @@ export default function ResultPage() {
   if (!result) {
     return (
       <main className="flex min-h-svh items-center justify-center p-6">
-        <div className="rounded-3xl border border-border bg-white/5 p-8 text-center shadow-sm backdrop-blur-lg">
+        <div className="rounded-3xl border border-border bg-white/5 p-8 text-center shadow-sm">
           <p className="text-sm tracking-[0.2em] text-muted-foreground uppercase">
             MythosMatch
           </p>
@@ -80,7 +80,7 @@ export default function ResultPage() {
 
   return (
     <main className="flex min-h-svh items-center justify-center p-6">
-      <div className="w-full max-w-2xl rounded-[2rem] border border-border bg-white/5 p-6 shadow-sm backdrop-blur-lg sm:p-8">
+      <div className="w-full max-w-2xl rounded-[2rem] border border-border bg-white/5 p-6 shadow-sm sm:p-8">
         <p className="text-xs font-medium tracking-[0.28em] text-muted-foreground uppercase">
           Your divine match
         </p>
