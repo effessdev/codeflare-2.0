@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { motion } from "motion/react"
@@ -13,33 +13,21 @@ const STORAGE_KEY = "mythosmatch-answers"
 export default function QuestionPage() {
   const params = useParams<{ questionId?: string }>()
   const router = useRouter()
-  const [answers, setAnswers] = useState<Record<string, string>>({})
-  const [isReady, setIsReady] = useState(false)
+
+  // Read initial state safely on first render
+  const [answers, setAnswers] = useState<Record<string, string>>(() => {
+    if (typeof window === "undefined") return {}
+    try {
+      const saved = window.localStorage.getItem(STORAGE_KEY)
+      return saved ? (JSON.parse(saved) as Record<string, string>) : {}
+    } catch {
+      return {}
+    }
+  })
 
   const rawIndex = Number(params.questionId ?? "0")
   const questionIndex = Number.isNaN(rawIndex) ? -1 : rawIndex - 1
   const question = questionBank[questionIndex]
-
-  useEffect(() => {
-    try {
-      const saved = window.localStorage.getItem(STORAGE_KEY)
-      if (saved) {
-        setAnswers(JSON.parse(saved) as Record<string, string>)
-      }
-    } catch {
-      // Ignore storage errors and continue with empty answers.
-    }
-
-    setIsReady(true)
-  }, [])
-
-  useEffect(() => {
-    if (!isReady) {
-      return
-    }
-
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(answers))
-  }, [answers, isReady])
 
   if (!question) {
     return (
@@ -63,7 +51,14 @@ export default function QuestionPage() {
 
   const handleSelect = (optionId: string) => {
     const nextAnswers = { ...answers, [String(question.id)]: optionId }
+
+    // Update local state and sync storage in the event handler directly
     setAnswers(nextAnswers)
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextAnswers))
+    } catch {
+      // Handle storage quota exceeded if necessary
+    }
 
     if (questionIndex + 1 < questionBank.length) {
       router.push(`/questions/${String(questionIndex + 2).padStart(2, "0")}`)
