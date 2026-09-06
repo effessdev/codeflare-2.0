@@ -112,7 +112,7 @@ export default function ResultPage() {
   }
 
   return (
-    <main className="flex min-h-svh items-center justify-center p-6">
+    <main className="flex min-h-svh items-center justify-center p-6 text-center">
       <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
         {isLoading ? (
           <motion.div
@@ -124,7 +124,7 @@ export default function ResultPage() {
             className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-border bg-white/5 p-8 text-center shadow-sm"
           >
             <Spinner className="h-8 w-8 text-primary" />
-            <div>
+            <div className="flex flex-col items-center justify-center text-center">
               <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
                 MythosMatch
               </p>
@@ -140,7 +140,7 @@ export default function ResultPage() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="w-full max-w-2xl rounded-[2rem] border border-border bg-white/5 p-6 shadow-sm sm:p-8"
+            className="flex w-full max-w-2xl flex-col items-center justify-center rounded-[2rem] border border-border bg-white/5 p-6 text-center shadow-sm sm:p-8"
           >
             <motion.p
               variants={itemVariants}
@@ -148,8 +148,11 @@ export default function ResultPage() {
             >
               Your divine match
             </motion.p>
-            <div className="mt-6 grid gap-6 sm:grid-cols-[180px_1fr] sm:items-center">
-              <motion.div variants={itemVariants} className="flex justify-center">
+            <div className="mt-6 flex w-full flex-col items-center justify-center gap-6">
+              <motion.div
+                variants={itemVariants}
+                className="flex justify-center"
+              >
                 <div className="relative h-52 w-40 overflow-hidden rounded-[1.5rem] border border-white/20 bg-black/20 shadow-lg ring-1 ring-white/10">
                   <Image
                     src={result.image}
@@ -162,7 +165,7 @@ export default function ResultPage() {
                 </div>
               </motion.div>
 
-              <div className="space-y-4">
+              <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <motion.h1
                   variants={itemVariants}
                   className="text-4xl font-semibold"
@@ -176,7 +179,10 @@ export default function ResultPage() {
                   {result.culture}
                 </motion.p>
 
-                <motion.div variants={itemVariants}>
+                <motion.div
+                  variants={itemVariants}
+                  className="flex flex-col items-center justify-center"
+                >
                   <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
                     Powers
                   </p>
@@ -185,7 +191,10 @@ export default function ResultPage() {
                   </p>
                 </motion.div>
 
-                <motion.div variants={itemVariants}>
+                <motion.div
+                  variants={itemVariants}
+                  className="flex flex-col items-center justify-center"
+                >
                   <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
                     Personality
                   </p>
@@ -196,11 +205,14 @@ export default function ResultPage() {
               </div>
             </div>
 
-            <motion.div variants={itemVariants} className="mt-8">
+            <motion.div
+              variants={itemVariants}
+              className="mt-8 flex flex-col items-center justify-center"
+            >
               <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
                 Other gods in the pantheon
               </p>
-              <div className="mt-3 flex flex-wrap items-center gap-2">
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
                 {remainingGods.map((god) => (
                   <div
                     key={god.id}
