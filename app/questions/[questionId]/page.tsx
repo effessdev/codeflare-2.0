@@ -43,7 +43,7 @@ export default function QuestionPage() {
   if (!question) {
     return (
       <main className="flex min-h-svh items-center justify-center p-6">
-        <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 text-center shadow-sm">
+        <div className="w-full max-w-md rounded-3xl border border-border bg-white/5 p-8 text-center shadow-sm backdrop-blur-lg">
           <p className="text-sm tracking-[0.2em] text-muted-foreground uppercase">
             MythosMatch
           </p>
@@ -84,7 +84,7 @@ export default function QuestionPage() {
           </span>
         </div>
 
-        <div className="rounded-[2rem] border border-border bg-card p-6 shadow-sm sm:p-8">
+        <div className="rounded-[2rem] border border-border bg-white/5 p-6 shadow-sm backdrop-blur-lg sm:p-8">
           <p className="text-xs font-medium tracking-[0.28em] text-muted-foreground uppercase">
             Personality quiz
           </p>
@@ -104,8 +104,8 @@ export default function QuestionPage() {
                   className={[
                     "flex w-full items-center gap-3 rounded-2xl border p-4 text-left transition-all",
                     isSelected
-                      ? "border-primary bg-primary/10 text-foreground"
-                      : "border-border bg-background hover:border-primary/40 hover:bg-muted/30",
+                      ? "border-primary bg-white/10 text-foreground"
+                      : "border-border bg-white/5 hover:border-primary/40 hover:bg-muted/30",
                   ].join(" ")}
                 >
                   <span

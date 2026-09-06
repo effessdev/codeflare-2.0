@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 export default function Page() {
   return (
     <main className="flex min-h-svh items-center justify-center p-6">
-      <div className="w-full max-w-xl rounded-[2rem] border border-border bg-card p-8 text-center shadow-sm sm:p-12">
+      <div className="w-full max-w-xl rounded-[2rem] border border-border bg-white/5 p-8 text-center shadow-sm backdrop-blur-lg sm:p-12">
         <p className="text-xs font-medium tracking-[0.32em] text-muted-foreground uppercase">
           MythosMatch
         </p>
