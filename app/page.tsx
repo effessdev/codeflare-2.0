@@ -47,7 +47,7 @@ export default function Page() {
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{
             duration: 1,
-            delay: 4, // Gives the user time to read the text before appearing
+            delay: 0.5, // Gives the user time to read the text before appearing
             ease: "easeOut",
           }}
           whileHover={{ scale: 1.05 }}
