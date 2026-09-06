@@ -66,6 +66,7 @@ const itemVariants: Variants = {
 export default function ResultPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isExiting, setIsExiting] = useState<boolean>(false)
 
   const [result] = useState<God | null>(() => {
     if (typeof window === "undefined") return null
@@ -94,7 +95,13 @@ export default function ResultPage() {
 
   const handleRetake = (): void => {
     window.localStorage.removeItem(STORAGE_KEY)
-    router.push("/questions/01")
+    setIsExiting(true)
+  }
+
+  const handleExitComplete = (): void => {
+    if (isExiting) {
+      router.push("/questions/01")
+    }
   }
 
   if (!result) {
@@ -103,7 +110,7 @@ export default function ResultPage() {
 
   return (
     <main className="flex min-h-svh items-center justify-center p-6">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
         {isLoading ? (
           <motion.div
             key="loading"
@@ -123,7 +130,7 @@ export default function ResultPage() {
               </h1>
             </div>
           </motion.div>
-        ) : (
+        ) : !isExiting ? (
           <motion.div
             key="result"
             variants={containerVariants}
@@ -180,7 +187,7 @@ export default function ResultPage() {
               </Button>
             </motion.div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </main>
   )
