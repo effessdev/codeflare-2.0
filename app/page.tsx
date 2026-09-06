@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "motion/react"
 
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function Page() {
   const router = useRouter()
@@ -106,6 +107,17 @@ export default function Page() {
           </motion.div>
         )}
       </AnimatePresence>
+      <p className="absolute bottom-4 text-sm text-muted-foreground">
+        Created by{" "}
+        <Link
+          href="https://github.com/effessdev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2"
+        >
+          EffessDev
+        </Link>
+      </p>
     </main>
   )
 }
