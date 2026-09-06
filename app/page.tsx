@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "motion/react"
+import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 
@@ -111,9 +112,9 @@ export default function Page() {
                 size="lg"
                 className="mt-8 transition-shadow duration-300 hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]"
               >
-                <a href="/questions/01" onClick={handleStart}>
+                <Link href="/questions/01" onClick={handleStart}>
                   Start the quiz
-                </a>
+                </Link>
               </Button>
             </motion.div>
           </motion.div>
