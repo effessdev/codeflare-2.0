@@ -58,15 +58,15 @@ export default function QuestionPage() {
   const handleBack = () => {
     if (isExiting) return
 
-    if (questionIndex > 0) {
-      setIsExiting(true)
+    setIsExiting(true)
 
-      setTimeout(() => {
+    setTimeout(() => {
+      if (questionIndex > 0) {
         router.push(`/questions/${String(questionIndex).padStart(2, "0")}`)
-      }, 400)
-    } else {
-      router.push("/")
-    }
+      } else {
+        router.push("/")
+      }
+    }, 400)
   }
 
   const handleSelect = (optionId: string) => {
@@ -111,18 +111,13 @@ export default function QuestionPage() {
       >
         <div className="mb-6 flex items-center justify-between text-sm text-muted-foreground">
           <div className="flex items-center gap-3">
-            {questionIndex > 0 ? (
-              <button
-                className="transition hover:text-foreground"
-                onClick={handleBack}
-              >
-                Back
-              </button>
-            ) : (
-              <Link href="/" className="transition hover:text-foreground">
-                Home
-              </Link>
-            )}
+            <button
+              type="button"
+              className="transition hover:text-foreground"
+              onClick={handleBack}
+            >
+              {questionIndex > 0 ? "Back" : "Home"}
+            </button>
           </div>
           <span>
             Question {question.id} / {questionBank.length}
