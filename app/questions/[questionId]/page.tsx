@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import { Button } from "@/components/ui/button"
+import { motion } from "motion/react"
 import { questionBank } from "@/lib/quiz-data"
 
 const STORAGE_KEY = "mythosmatch-answers"
@@ -93,14 +94,23 @@ export default function QuestionPage() {
           </h1>
 
           <div className="mt-8 grid gap-3">
-            {question.options.map((option) => {
+            {question.options.map((option, idx) => {
               const isSelected = currentSelection === option.id
 
               return (
-                <button
+                <motion.button
                   key={option.id}
                   type="button"
                   onClick={() => handleSelect(option.id)}
+                  initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{
+                    duration: 0.45,
+                    delay: 0.12 * idx,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.995 }}
                   className={[
                     "flex w-full items-center gap-3 rounded-2xl border p-4 text-left transition-all",
                     isSelected
@@ -119,7 +129,7 @@ export default function QuestionPage() {
                     {isSelected ? "✓" : ""}
                   </span>
                   <span className="text-base">{option.label}</span>
-                </button>
+                </motion.button>
               )
             })}
           </div>
