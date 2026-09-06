@@ -1,6 +1,6 @@
-# MythosMatch
+# MythosMatch • [Click here to try it!](https://codeflare-2-0.vercel.app)
 
-Built under 3 hours for CODEFLARE 2.0 Website Development Challenge. [Click here](https://codeflare-2-0.vercel.app) to try it.
+Built under 3 hours for CODEFLARE 2.0 Website Development Challenge. 
 
 ![Main Screenshot](/assets/main-screenshot.png)
 
