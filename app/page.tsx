@@ -57,7 +57,7 @@ export default function Page() {
               <span className="text-xs font-normal tracking-[0.28em] text-muted-foreground normal-case">
                 (by{" "}
                 <a
-                  href="https://github.com/effessdev"
+                  href="https://effessdev.github.io"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline underline-offset-2"
