@@ -2,13 +2,15 @@
 
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { motion, AnimatePresence, type Variants } from "motion/react"
 
 import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
 import { gods, questionBank, type God } from "@/lib/quiz-data"
 
 const STORAGE_KEY = "mythosmatch-answers"
 
-function calculateResult(answers: Record<string, string>) {
+function calculateResult(answers: Record<string, string>): God {
   const scoreMap: Record<string, number> = Object.fromEntries(
     gods.map((god) => [god.id, 0])
   )
@@ -35,10 +37,36 @@ function calculateResult(answers: Record<string, string>) {
   )
 }
 
+// Explicitly type variants using the `Variants` type from motion/react
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -12,
+    transition: { duration: 0.3, ease: "easeIn" },
+  },
+}
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+}
+
 export default function ResultPage() {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  // Initialize state lazily on initial render
   const [result] = useState<God | null>(() => {
     if (typeof window === "undefined") return null
     try {
@@ -51,68 +79,109 @@ export default function ResultPage() {
     }
   })
 
-  // Handle redirection as a side effect without setting state
   useEffect(() => {
     if (!result) {
       router.push("/")
+      return
     }
+
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 4000)
+
+    return () => clearTimeout(timer)
   }, [result, router])
 
-  const handleRetake = () => {
+  const handleRetake = (): void => {
     window.localStorage.removeItem(STORAGE_KEY)
     router.push("/questions/01")
   }
 
   if (!result) {
-    return (
-      <main className="flex min-h-svh items-center justify-center p-6">
-        <div className="rounded-3xl border border-border bg-white/5 p-8 text-center shadow-sm">
-          <p className="text-sm tracking-[0.2em] text-muted-foreground uppercase">
-            MythosMatch
-          </p>
-          <h1 className="mt-4 text-3xl font-semibold">
-            Calculating your divine match…
-          </h1>
-        </div>
-      </main>
-    )
+    return null
   }
 
   return (
     <main className="flex min-h-svh items-center justify-center p-6">
-      <div className="w-full max-w-2xl rounded-[2rem] border border-border bg-white/5 p-6 shadow-sm sm:p-8">
-        <p className="text-xs font-medium tracking-[0.28em] text-muted-foreground uppercase">
-          Your divine match
-        </p>
-        <h1 className="mt-4 text-4xl font-semibold">{result.name}</h1>
-        <p className="mt-2 text-lg text-muted-foreground">{result.culture}</p>
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.35 }}
+            className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-border bg-white/5 p-8 text-center shadow-sm"
+          >
+            <Spinner className="h-8 w-8 text-primary" />
+            <div>
+              <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
+                MythosMatch
+              </p>
+              <h1 className="mt-2 text-xl font-semibold">
+                Consulting the pantheon & aligning the stars…
+              </h1>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="result"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="w-full max-w-2xl rounded-[2rem] border border-border bg-white/5 p-6 shadow-sm sm:p-8"
+          >
+            <motion.p
+              variants={itemVariants}
+              className="text-xs font-medium tracking-[0.28em] text-muted-foreground uppercase"
+            >
+              Your divine match
+            </motion.p>
+            <motion.h1
+              variants={itemVariants}
+              className="mt-4 text-4xl font-semibold"
+            >
+              {result.name}
+            </motion.h1>
+            <motion.p
+              variants={itemVariants}
+              className="mt-2 text-lg text-muted-foreground"
+            >
+              {result.culture}
+            </motion.p>
 
-        <div className="mt-8 space-y-6">
-          <div>
-            <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
-              Powers
-            </p>
-            <p className="mt-2 text-base leading-relaxed">
-              {result.powers.join(" • ")}
-            </p>
-          </div>
+            <div className="mt-8 space-y-6">
+              <motion.div variants={itemVariants}>
+                <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
+                  Powers
+                </p>
+                <p className="mt-2 text-base leading-relaxed">
+                  {result.powers.join(" • ")}
+                </p>
+              </motion.div>
 
-          <div>
-            <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
-              Personality
-            </p>
-            <p className="mt-2 text-base leading-relaxed text-foreground/90">
-              {result.description}
-            </p>
-          </div>
-        </div>
+              <motion.div variants={itemVariants}>
+                <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
+                  Personality
+                </p>
+                <p className="mt-2 text-base leading-relaxed text-foreground/90">
+                  {result.description}
+                </p>
+              </motion.div>
+            </div>
 
-        <div className="mt-8 flex justify-center">
-          <Button onClick={handleRetake} size="lg">
-            Retake the quiz
-          </Button>
-        </div>
-      </div>
+            <motion.div
+              variants={itemVariants}
+              className="mt-8 flex justify-center"
+            >
+              <Button onClick={handleRetake} size="lg">
+                Retake the quiz
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }
