@@ -26,6 +26,18 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
+export const metadata = {
+  title: "MythosMatch",
+  description:
+    "Discover your divine match with MythosMatch, the ultimate quiz that aligns your personality with the gods of mythology. Uncover which deity resonates with your traits and powers.",
+  openGraph: {
+    title: "MythosMatch",
+    description:
+      "Discover your divine match with MythosMatch, the ultimate quiz that aligns your personality with the gods of mythology. Uncover which deity resonates with your traits and powers.",
+    url: "https://codeflare-2-0.vercel.app",
+  },
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
