@@ -37,22 +37,26 @@ function calculateResult(answers: Record<string, string>) {
 
 export default function ResultPage() {
   const router = useRouter()
-  const [result, setResult] = useState<God | null>(null)
 
-  useEffect(() => {
+  // Initialize state lazily on initial render
+  const [result] = useState<God | null>(() => {
+    if (typeof window === "undefined") return null
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY)
-      if (!saved) {
-        router.push("/")
-        return
-      }
-
+      if (!saved) return null
       const parsed = JSON.parse(saved) as Record<string, string>
-      setResult(calculateResult(parsed))
+      return calculateResult(parsed)
     } catch {
+      return null
+    }
+  })
+
+  // Handle redirection as a side effect without setting state
+  useEffect(() => {
+    if (!result) {
       router.push("/")
     }
-  }, [router])
+  }, [result, router])
 
   const handleRetake = () => {
     window.localStorage.removeItem(STORAGE_KEY)
