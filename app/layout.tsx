@@ -55,20 +55,20 @@ export default function RootLayout({
         playfairDisplayHeading.variable
       )}
     >
-      <body className="min-h-screen bg-background text-foreground">
-        {/* Fixed background div */}
-        <div
-          aria-hidden="true"
-          className="fixed inset-0 -z-10 min-h-dvh"
-          style={{
-            backgroundImage: `url(${backgroundImage.src})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-          }}
-        />
-
-        <div className="relative z-10">{children}</div>
+      {/* Body doesn't overflow (fix fixed bg layout issues in mobile phones with browser bars that change) */}
+      <body
+        className="bg-background text-foreground"
+        style={{
+          backgroundImage: `url(${backgroundImage.src})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        {/* Inner scrollable container */}
+        <main className="safe-area-padding h-full overflow-y-auto">
+          {children}
+        </main>
       </body>
     </html>
   )
