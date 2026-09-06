@@ -1,6 +1,6 @@
 # MythosMatch • [Click here to try it!](https://codeflare-2-0.vercel.app)
 
-Built under 3 hours for CODEFLARE 2.0 Website Development Challenge. 
+Built under 3 hours for the CODEFLARE 2.0 Website Development Challenge on the subject of **_Mythology and Folklore_**. 
 
 ![Main Screenshot](/assets/main-screenshot.png)
 
