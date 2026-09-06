@@ -1,12 +1,19 @@
-import { Geist, Geist_Mono, EB_Garamond, Playfair_Display } from "next/font/google"
+import {
+  Geist,
+  Geist_Mono,
+  EB_Garamond,
+  Playfair_Display,
+} from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
-const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
+const playfairDisplayHeading = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-heading",
+})
 
-const ebGaramond = EB_Garamond({subsets:['latin'],variable:'--font-serif'});
+const ebGaramond = EB_Garamond({ subsets: ["latin"], variable: "--font-serif" })
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -26,12 +33,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
-      className={cn("antialiased", fontSans.variable, fontMono.variable, "font-serif", ebGaramond.variable, playfairDisplayHeading.variable)}
+
+      className={cn(
+        "antialiased",
+        fontSans.variable,
+        fontMono.variable,
+        "font-serif",
+        ebGaramond.variable,
+        playfairDisplayHeading.variable
+      )}
     >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
