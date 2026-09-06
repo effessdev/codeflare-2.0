@@ -55,6 +55,20 @@ export default function QuestionPage() {
 
   const currentSelection = answers[String(question.id)]
 
+  const handleBack = () => {
+    if (isExiting) return
+
+    if (questionIndex > 0) {
+      setIsExiting(true)
+
+      setTimeout(() => {
+        router.push(`/questions/${String(questionIndex).padStart(2, "0")}`)
+      }, 400)
+    } else {
+      router.push("/")
+    }
+  }
+
   const handleSelect = (optionId: string) => {
     if (isExiting) return
 
@@ -96,9 +110,20 @@ export default function QuestionPage() {
         className="w-full max-w-2xl"
       >
         <div className="mb-6 flex items-center justify-between text-sm text-muted-foreground">
-          <Link href="/" className="transition hover:text-foreground">
-            Home
-          </Link>
+          <div className="flex items-center gap-3">
+            {questionIndex > 0 ? (
+              <button
+                className="transition hover:text-foreground"
+                onClick={handleBack}
+              >
+                Back
+              </button>
+            ) : (
+              <Link href="/" className="transition hover:text-foreground">
+                Home
+              </Link>
+            )}
+          </div>
           <span>
             Question {question.id} / {questionBank.length}
           </span>

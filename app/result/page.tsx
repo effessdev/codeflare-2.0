@@ -126,7 +126,7 @@ export default function ResultPage() {
                 MythosMatch
               </p>
               <h1 className="mt-2 text-xl font-semibold">
-                Consulting the pantheon & aligning the stars…
+                Consulting the pantheon & aligning the stars
               </h1>
             </div>
           </motion.div>
