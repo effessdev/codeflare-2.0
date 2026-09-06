@@ -7,6 +7,7 @@ import odinImage from "@/app/assets/odin.jpg"
 import raImage from "@/app/assets/ra.jpg"
 import thorImage from "@/app/assets/thor.jpg"
 import zeusImage from "@/app/assets/zeus.jpg"
+import isisImage from "@/app/assets/isis.jpg"
 
 export type GodId =
   "zeus" | "athena" | "ares" | "odin" | "thor" | "freya" | "ra" | "isis"
@@ -103,7 +104,7 @@ export const gods: God[] = [
     powers: ["Magic intuition", "Healing wisdom", "Emotional mastery"],
     description:
       "You are compassionate, perceptive, and quietly influential, using intuition and care to guide the people you love.",
-    image: raImage,
+    image: isisImage,
   },
 ]
 
