@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence, type Variants } from "motion/react"
@@ -80,6 +81,8 @@ export default function ResultPage() {
     }
   })
 
+  const remainingGods = result ? gods.filter((god) => god.id !== result.id) : []
+
   useEffect(() => {
     if (!result) {
       router.push("/")
@@ -145,38 +148,77 @@ export default function ResultPage() {
             >
               Your divine match
             </motion.p>
-            <motion.h1
-              variants={itemVariants}
-              className="mt-4 text-4xl font-semibold"
-            >
-              {result.name}
-            </motion.h1>
-            <motion.p
-              variants={itemVariants}
-              className="mt-2 text-lg text-muted-foreground"
-            >
-              {result.culture}
-            </motion.p>
-
-            <div className="mt-8 space-y-6">
-              <motion.div variants={itemVariants}>
-                <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
-                  Powers
-                </p>
-                <p className="mt-2 text-base leading-relaxed">
-                  {result.powers.join(" • ")}
-                </p>
+            <div className="mt-6 grid gap-6 sm:grid-cols-[180px_1fr] sm:items-center">
+              <motion.div variants={itemVariants} className="flex justify-center">
+                <div className="relative h-52 w-40 overflow-hidden rounded-[1.5rem] border border-white/20 bg-black/20 shadow-lg ring-1 ring-white/10">
+                  <Image
+                    src={result.image}
+                    alt={result.name}
+                    fill
+                    priority
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, 180px"
+                  />
+                </div>
               </motion.div>
 
-              <motion.div variants={itemVariants}>
-                <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
-                  Personality
-                </p>
-                <p className="mt-2 text-base leading-relaxed text-foreground/90">
-                  {result.description}
-                </p>
-              </motion.div>
+              <div className="space-y-4">
+                <motion.h1
+                  variants={itemVariants}
+                  className="text-4xl font-semibold"
+                >
+                  {result.name}
+                </motion.h1>
+                <motion.p
+                  variants={itemVariants}
+                  className="text-lg text-muted-foreground"
+                >
+                  {result.culture}
+                </motion.p>
+
+                <motion.div variants={itemVariants}>
+                  <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
+                    Powers
+                  </p>
+                  <p className="mt-2 text-base leading-relaxed">
+                    {result.powers.join(" • ")}
+                  </p>
+                </motion.div>
+
+                <motion.div variants={itemVariants}>
+                  <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
+                    Personality
+                  </p>
+                  <p className="mt-2 text-base leading-relaxed text-foreground/90">
+                    {result.description}
+                  </p>
+                </motion.div>
+              </div>
             </div>
+
+            <motion.div variants={itemVariants} className="mt-8">
+              <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
+                Other gods in the pantheon
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                {remainingGods.map((god) => (
+                  <div
+                    key={god.id}
+                    className="relative h-8 w-8 overflow-hidden rounded-full border border-white/20 bg-black/20 shadow-sm"
+                    aria-label="Other deity"
+                    title="Other deity"
+                  >
+                    <Image
+                      src={god.image}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="32px"
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
 
             <motion.div
               variants={itemVariants}

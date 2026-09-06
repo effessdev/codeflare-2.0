@@ -1,3 +1,13 @@
+import type { StaticImageData } from "next/image"
+
+import aresImage from "@/app/assets/ares.jpg"
+import athenaImage from "@/app/assets/athena.jpg"
+import freyaImage from "@/app/assets/freya.jpg"
+import odinImage from "@/app/assets/odin.jpg"
+import raImage from "@/app/assets/ra.jpg"
+import thorImage from "@/app/assets/thor.jpg"
+import zeusImage from "@/app/assets/zeus.jpg"
+
 export type GodId =
   "zeus" | "athena" | "ares" | "odin" | "thor" | "freya" | "ra" | "isis"
 
@@ -7,6 +17,7 @@ export type God = {
   culture: string
   powers: string[]
   description: string
+  image: StaticImageData
 }
 
 export type QuizOption = {
@@ -29,6 +40,7 @@ export const gods: God[] = [
     powers: ["Thunderbolt control", "Sky dominance", "Commanding presence"],
     description:
       "You lead with confidence, energy, and the kind of calm authority that makes others instinctively trust your judgment.",
+    image: zeusImage,
   },
   {
     id: "athena",
@@ -37,6 +49,7 @@ export const gods: God[] = [
     powers: ["Strategic wisdom", "Battle insight", "Disciplined thinking"],
     description:
       "You think clearly, solve problems with purpose, and bring a steady blend of intelligence and composure to every challenge.",
+    image: athenaImage,
   },
   {
     id: "ares",
@@ -45,6 +58,7 @@ export const gods: God[] = [
     powers: ["Fierce courage", "Combat passion", "Bold action"],
     description:
       "You move through life with intensity, instinct, and fearless determination, often charging forward before others catch up.",
+    image: aresImage,
   },
   {
     id: "odin",
@@ -53,6 +67,7 @@ export const gods: God[] = [
     powers: ["Sacrificial wisdom", "Mystic insight", "Raven knowledge"],
     description:
       "You are thoughtful, ambitious, and endlessly curious—always searching for meaning, strategy, and the next deep truth.",
+    image: odinImage,
   },
   {
     id: "thor",
@@ -61,6 +76,7 @@ export const gods: God[] = [
     powers: ["Storm strength", "Protective energy", "Unshakable heart"],
     description:
       "You are loyal, brave, and naturally protective, bringing fearless strength and warmth to the people around you.",
+    image: thorImage,
   },
   {
     id: "freya",
@@ -69,6 +85,7 @@ export const gods: God[] = [
     powers: ["Magnetic charm", "Emotional intuition", "Loyal devotion"],
     description:
       "You carry beauty, depth, and emotional intelligence, often leading with empathy while still knowing exactly what you want.",
+    image: freyaImage,
   },
   {
     id: "ra",
@@ -77,6 +94,7 @@ export const gods: God[] = [
     powers: ["Solar authority", "Radiant confidence", "Creation energy"],
     description:
       "You shine with purpose and self-possession, drawing people in with a mix of confidence, leadership, and quiet power.",
+    image: raImage,
   },
   {
     id: "isis",
@@ -85,6 +103,7 @@ export const gods: God[] = [
     powers: ["Magic intuition", "Healing wisdom", "Emotional mastery"],
     description:
       "You are compassionate, perceptive, and quietly influential, using intuition and care to guide the people you love.",
+    image: raImage,
   },
 ]
 
