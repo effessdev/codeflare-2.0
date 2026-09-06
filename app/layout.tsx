@@ -46,7 +46,6 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-
       className={cn(
         "antialiased",
         fontSans.variable,
@@ -56,17 +55,20 @@ export default function RootLayout({
         playfairDisplayHeading.variable
       )}
     >
-      <body
-        className="min-h-screen bg-background text-foreground"
-        style={{
-          backgroundImage: `url(${backgroundImage.src})`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundAttachment: "fixed",
-        }}
-      >
-        {children}
+      <body className="min-h-screen bg-background text-foreground">
+        {/* Fixed background div */}
+        <div
+          aria-hidden="true"
+          className="fixed inset-0 -z-10"
+          style={{
+            backgroundImage: `url(${backgroundImage.src})`,
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+          }}
+        />
+
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   )
